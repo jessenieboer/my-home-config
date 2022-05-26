@@ -1,0 +1,15 @@
+personal home config
+
+stuff that is not in my-nixos-machines
+
+assumes that a user jessenieboer exists in the underlying nixos system
+
+clone repo
+
+cd to repo
+
+nix build .#homeConfigurations.jessenieboer.activationPackage
+
+cd result
+
+./activate
