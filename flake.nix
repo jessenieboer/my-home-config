@@ -19,14 +19,13 @@
 
   let
     #lib = nixpkgs.lib;
-    nixpkgsConfig = {
+    pkgs = import nixpkgs {
+      inherit system;
       overlays = [
         emacs-overlay.overlay
       ];
     };
-    pkgs = import nixpkgs {
-      inherit system;
-    };
+    
     system = "x86_64-linux";
 
   in {
