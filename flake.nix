@@ -2,34 +2,49 @@
   description = "home manager config for jessenieboer";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";    
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+    };    
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";    
   };
 
-  outputs = { self, nixpkgs, home-manager }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-      lib = nixpkgs.lib;
-    in {
-      homeConfigurations = {
-        jessenieboer = home-manager.lib.homeManagerConfiguration {
-          inherit system pkgs;
-          username = "jessenieboer";
-          homeDirectory = "/home/jessenieboer";
-          stateVersion = "21.11";
-          configuration = {
-            imports = [
-              ./home.nix
-            ];
-          };
+  outputs = {
+    emacs-overlay,
+    nixpkgs,
+    home-manager,
+    self
+  }:
+
+  let
+    #lib = nixpkgs.lib;
+    nixpkgsConfig = {
+      overlays = [
+        emacs-overlay.overlay
+      ];
+    };
+    pkgs = import nixpkgs {
+      inherit system;
+    };
+    system = "x86_64-linux";
+
+  in {
+    homeConfigurations = {
+      jessenieboer = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs system;
+        
+        configuration = {
+          imports = [
+            ./home.nix
+          ];
         };
+        
+        homeDirectory = "/home/jessenieboer";        
+        stateVersion = "21.11";
+        username = "jessenieboer";        
       };
     };
+  };
 }
-      
+
