@@ -1,0 +1,5 @@
+* personal info
+#+begin_src emacs-lisp
+(setq user-full-name "Jesse Nieboer"
+      user-mail-address "jessenieboer@protonmail.com")
+#+end_src
