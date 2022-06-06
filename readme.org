@@ -13,3 +13,4 @@ nix build .#homeConfigurations.jessenieboer.activationPackage
 cd result
 
 ./activate
+

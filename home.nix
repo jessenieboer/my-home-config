@@ -1,11 +1,14 @@
 { config, lib, modulesPath, options, pkgs, specialArgs }: 
 
+# see if package is available: nix-env -f 'nixpkgs' -qaP emacsPackages | grep packagename
 let emacs = with pkgs;
 (emacsWithPackagesFromUsePackage {
   config = ./config.org;
   package = emacsNativeComp;
   extraEmacsPackages = epkgs:
-  (with epkgs; []);
+  (with epkgs; [
+    dired
+  ]);
 });
 
 in {

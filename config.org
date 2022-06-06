@@ -3,3 +3,19 @@
 (setq user-full-name "Jesse Nieboer"
       user-mail-address "jessenieboer@protonmail.com")
 #+end_src
+* file system
+** dired
+#+begin_src emacs-lisp
+(add-hook 'dired-mode-hook(lambda ()(dired-hide-details-mode 1))) ; reduce dired clutter by default
+(setq dired-copy-preserve-time t
+      dired-recursive-deletes 'top
+      dired-dwim-target t)
+;; (use-package dired-collapse)
+;; (dired-collapse-mode t)
+;(use-package dired-filter)
+;(use-package dired-narrow)
+;; (use-package dired-ranger)
+;; (use-package dired-subtree)
+;; (use-package dired-single)
+#+end_src
+
