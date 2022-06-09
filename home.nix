@@ -7,7 +7,7 @@ let emacs = with pkgs;
   package = emacsNativeComp;
   extraEmacsPackages = epkgs:
   (with epkgs; [
-    dired
+    hydra
   ]);
 });
 
