@@ -10,12 +10,41 @@
 (setq dired-copy-preserve-time t
       dired-recursive-deletes 'top
       dired-dwim-target t)
-;; (use-package dired-collapse)
-;; (dired-collapse-mode t)
-;(use-package dired-filter)
-;(use-package dired-narrow)
-;; (use-package dired-ranger)
-;; (use-package dired-subtree)
-;; (use-package dired-single)
 #+end_src
+* bindings
+** hydras
+*** dired
+#+begin_src emacs-lisp
+(major-mode-hydra-define+ (dired-mode)
+  (:color amaranth :quit-key ("<f19>") :title "dired")
+  (
+   "dired nav"
+   (("SPC" dired-previous-line "p line")
+    ("(" dired-prev-dirline "p dir")
+    ("e" dired-next-line "n line")
+    (")" dired-next-dirline "n dir")
+    ("a" dired-single-up-directory "climb single")
+    ("=" dired-up-directory "climb")
+    ("n" dired-single-buffer  "vis single")
+    (";" dired-find-file "vis")
+    ("p" dired-find-file-other-window  "vis other")
+    ("]" dired-display-file "show other")
+    ("r" dired-goto-file "goto"))
 
+   "dired view"
+   (("t" dired-subtree-remove "hide sub")
+    ("s" dired-subtree-insert "show sub")
+    ("u" dired-hide-details-mode "toggle details"))
+  
+   "dired action"
+   (("RET" dired-mark "dired mark")
+    ("*" dired-unmark "dired unmark")
+    ("o" set-mark-command "mark")
+    ("-" exchange-point-and-mark "mark switch")
+    ("it" dired-ranger-copy "copy")
+    ("i SPC" dired-ranger-move "move")
+    ("ia" dired-ranger-paste "paste")
+    ("id" dired-do-delete "delete")
+    ("il" dired-do-rename "rename")
+    )))
+#+end_src
